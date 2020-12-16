@@ -10,6 +10,7 @@ void setup(){
   pinMode( S1, INPUT ); 
   pinMode( S2, INPUT );
   pinMode( LED, OUTPUT);
+  digitalWrite( LED, LEDOFF );
   Serial.begin(9600);
 }
 
@@ -25,11 +26,22 @@ void moikataan(){
   }
 }
 
+bool ledOff = true;
+void vaihdaLedinTilaa(){
+  if( ledOff == true ){
+    digitalWrite( LED, LEDON );
+    ledOff = false;
+  }else{
+    digitalWrite( LED, LEDOFF );
+    ledOff = true;
+  }
+}
+
 bool ohjaanko = true;
 void ohjataan(){
   if( digitalRead( S1 ) == BUTTONPRESSED ){
     if( ohjaanko == true ){
-      
+      vaihdaLedinTilaa();
       ohjaanko = false;
     }
   }else{
